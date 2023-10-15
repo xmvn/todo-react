@@ -1,7 +1,7 @@
 import React from 'react';
 import Task from '../Task/Task';
 import './TaskList.css';
-const TaskList = ({ todoData, setTodoData }) => {
+const TaskList = ({ todoData, setTodoData, filter }) => {
   const deleteTask = (id) => {
     const updatedTodoData = todoData.filter((todo) => todo.id !== id);
     setTodoData(updatedTodoData);
@@ -46,11 +46,20 @@ const TaskList = ({ todoData, setTodoData }) => {
       });
     });
   };
-
+  const filteredTasks = todoData.filter((todo) => {
+    if (filter === 'all') {
+      return true;
+    } else if (filter === 'active') {
+      return todo.status !== 'completed';
+    } else if (filter === 'completed') {
+      return todo.status === 'completed';
+    }
+    return true;
+  });
   return (
     <ul className='todo-list'>
       <Task
-        todoData={todoData}
+        todoData={filteredTasks}
         deleteTask={deleteTask}
         completeTask={completeTask}
         editTask={editTask}

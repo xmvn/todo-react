@@ -25,13 +25,20 @@ const TodoApp = () => {
       id: 3,
     },
   ]);
+  const [filter, setFilter] = useState('all');
+  const incompletedCount = todoData.filter((el) => el.status !== 'completed');
 
   return (
     <div className='todoapp'>
       <h1>Todos</h1>
-      <NewTaskForm />
-      <TaskList todoData={todoData} setTodoData={setTodoData} />
-      <Footer taskCount={todoData.length ? todoData.length : 0} />
+      <NewTaskForm setTodoData={setTodoData} />
+      <TaskList todoData={todoData} setTodoData={setTodoData} filter={filter} />
+      <Footer
+        taskCount={incompletedCount.length ? incompletedCount.length : 0}
+        filter={filter}
+        setFilter={setFilter}
+        setTodoData={setTodoData}
+      />
     </div>
   );
 };

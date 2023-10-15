@@ -10,32 +10,34 @@ const Task = ({
 }) => {
   const [editedTaskDescription, setEditedTaskDescription] = useState('');
 
-  return todoData.map((todo) => (
-    <li className={todo.status} key={todo.id}>
+  return todoData.map(({ status, id, description, created }) => (
+    <li className={status} key={id}>
       <div className='view'>
         <input
           className='toggle'
           type='checkbox'
-          checked={todo.status === 'completed'}
-          onChange={() => completeTask(todo.id)}
+          checked={status === 'completed'}
+          onChange={() => completeTask(id)}
         />
         <label>
-          <span className='description'>{todo.description}</span>
-          <span className='created'>{todo.created}</span>
+          <span className='description'>{description}</span>
+          <span className='created'>{created}</span>
         </label>
         <button
           className='icon icon-edit'
-          onClick={() => editTask(todo.id)}
+          onClick={() => editTask(id)}
         ></button>
         <button
           className='icon icon-destroy'
-          onClick={() => deleteTask(todo.id)}
+          onClick={() => deleteTask(id)}
         ></button>
       </div>
-      {todo.status === 'editing' ? (
+      {status === 'editing' ? (
         <form
-          action=''
-          onSubmit={() => changeDescription(todo.id, editedTaskDescription)}
+          onSubmit={(e) => {
+            e.preventDefault();
+            changeDescription(id, editedTaskDescription);
+          }}
         >
           <input
             type='text'
