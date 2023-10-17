@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
+
 import './NewTaskForm.css';
 
 const NewTaskForm = ({ setTodoData }) => {
@@ -11,8 +14,8 @@ const NewTaskForm = ({ setTodoData }) => {
         {
           status: null,
           description: taskText,
-          created: 'created just now',
-          id: Math.random() * 10000,
+          created: Date.now(),
+          id: uuidv4(),
         },
       ];
     });
@@ -21,7 +24,6 @@ const NewTaskForm = ({ setTodoData }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     addTodo();
-    console.log(taskText);
     setTaskText('');
   };
 
@@ -36,6 +38,10 @@ const NewTaskForm = ({ setTodoData }) => {
       />
     </form>
   );
+};
+
+NewTaskForm.propTypes = {
+  setTodoData: PropTypes.func.isRequired,
 };
 
 export default NewTaskForm;

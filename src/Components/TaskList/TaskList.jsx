@@ -1,6 +1,8 @@
 import React from 'react';
 import Task from '../Task/Task';
 import './TaskList.css';
+import PropTypes from 'prop-types';
+
 const TaskList = ({ todoData, setTodoData, filter }) => {
   const deleteTask = (id) => {
     const updatedTodoData = todoData.filter((todo) => todo.id !== id);
@@ -67,6 +69,18 @@ const TaskList = ({ todoData, setTodoData, filter }) => {
       />
     </ul>
   );
+};
+
+TaskList.propTypes = {
+  todoData: PropTypes.array.isRequired,
+  setTodoData: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+};
+
+TaskList.defaultProps = {
+  todoData: [],
+  setTodoData: () => {},
+  filter: 'all',
 };
 
 export default TaskList;

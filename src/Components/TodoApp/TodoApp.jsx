@@ -9,19 +9,19 @@ const TodoApp = () => {
     {
       status: 'completed',
       description: 'Completed task',
-      created: 'created 17 seconds ago',
+      created: Date.now(),
       id: 1,
     },
     {
       status: 'editing',
       description: 'Editing task',
-      created: 'created 5 minutes ago',
+      created: Date.now(),
       id: 2,
     },
     {
       status: null,
       description: 'Active task',
-      created: 'created 5 minutes ago',
+      created: Date.now(),
       id: 3,
     },
   ]);

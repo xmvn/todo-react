@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './Task.css';
+import { formatDistanceToNow } from 'date-fns';
+import PropTypes from 'prop-types';
 
 const Task = ({
   todoData,
@@ -21,7 +23,9 @@ const Task = ({
         />
         <label>
           <span className='description'>{description}</span>
-          <span className='created'>{created}</span>
+          <span className='created'>
+            Created {formatDistanceToNow(created, { includeSeconds: true })} ago
+          </span>
         </label>
         <button
           className='icon icon-edit'
@@ -49,6 +53,30 @@ const Task = ({
       ) : null}
     </li>
   ));
+};
+
+Task.defaultProps = {
+  todoData: [],
+  description: 'Пустая задача',
+  status: 'null',
+  created: Date.now(),
+  editing: false,
+  deleteTask: () => {},
+  completeTask: () => {},
+  editTask: () => {},
+  changeDescription: () => {},
+};
+
+Task.propTypes = {
+  todoData: PropTypes.array.isRequired,
+  deleteTask: PropTypes.func.isRequired,
+  completeTask: PropTypes.func.isRequired,
+  editTask: PropTypes.func.isRequired,
+  changeDescription: PropTypes.func.isRequired,
+  description: PropTypes.string,
+  status: PropTypes.string,
+  created: PropTypes.number,
+  editing: PropTypes.bool,
 };
 
 export default Task;

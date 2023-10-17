@@ -1,8 +1,9 @@
 import React from 'react';
 import TasksFilter from '../TasksFilter/TasksFilter';
 import './Footer.css';
+import PropTypes from 'prop-types';
 
-const Footer = ({ taskCount, filter, setFilter, todoData, setTodoData }) => {
+const Footer = ({ taskCount, filter, setFilter, setTodoData }) => {
   const clearCompleted = () => {
     setTodoData((prevTodoData) =>
       prevTodoData.filter((todo) => todo.status !== 'completed')
@@ -17,6 +18,19 @@ const Footer = ({ taskCount, filter, setFilter, todoData, setTodoData }) => {
       </button>
     </footer>
   );
+};
+Footer.propTypes = {
+  taskCount: PropTypes.number.isRequired,
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired,
+  setTodoData: PropTypes.func.isRequired,
+};
+
+Footer.defaultProps = {
+  taskCount: 0,
+  filter: 'all',
+  setFilter: () => {},
+  setTodoData: () => {},
 };
 
 export default Footer;

@@ -1,45 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './TasksFilter.css';
+import PropTypes from 'prop-types';
 
 const TasksFilter = ({ filter, setFilter }) => {
-  const handleFilterAll = () => {
-    setFilter('all');
+  const [filterCollection] = useState(['all', 'active', 'completed']);
+
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
   };
 
-  const handleFilterActive = () => {
-    setFilter('active');
-  };
-
-  const handleFilterCompleted = () => {
-    setFilter('completed');
-  };
   return (
     <ul className='filters'>
-      <li>
-        <button
-          className={filter === 'all' ? 'selected' : ''}
-          onClick={handleFilterAll}
-        >
-          All
-        </button>
-      </li>
-      <li>
-        <button
-          className={filter === 'active' ? 'selected' : ''}
-          onClick={handleFilterActive}
-        >
-          Active
-        </button>
-      </li>
-      <li>
-        <button
-          className={filter === 'completed' ? 'selected' : ''}
-          onClick={handleFilterCompleted}
-        >
-          Completed
-        </button>
-      </li>
+      {filterCollection.map((filterOption) => (
+        <li key={filterOption}>
+          <button
+            className={filter === filterOption ? 'selected' : ''}
+            onClick={() => handleFilterChange(filterOption)}
+          >
+            {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
+          </button>
+        </li>
+      ))}
     </ul>
   );
 };
+
+TasksFilter.propTypes = {
+  filter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
+  setFilter: PropTypes.func.isRequired,
+};
+
 export default TasksFilter;
