@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import TaskList from '../TaskList/TaskList';
-import Footer from '../Footer/Footer';
-import NewTaskForm from '../NewTaskForm/NewTaskForm';
-import './TodoApp.css';
+import React, { useState } from 'react'
+
+import TaskList from '../TaskList/TaskList'
+import Footer from '../Footer/Footer'
+import NewTaskForm from '../NewTaskForm/NewTaskForm'
+import './TodoApp.css'
 
 const TodoApp = () => {
   const [todoData, setTodoData] = useState([
@@ -24,12 +25,12 @@ const TodoApp = () => {
       created: Date.now(),
       id: 3,
     },
-  ]);
-  const [filter, setFilter] = useState('all');
-  const incompletedCount = todoData.filter((el) => el.status !== 'completed');
+  ])
+  const [filter, setFilter] = useState('all')
+  const incompletedCount = todoData.filter((el) => el.status !== 'completed')
 
   return (
-    <div className='todoapp'>
+    <div className="todoapp">
       <h1>Todos</h1>
       <NewTaskForm setTodoData={setTodoData} />
       <TaskList todoData={todoData} setTodoData={setTodoData} filter={filter} />
@@ -40,7 +41,7 @@ const TodoApp = () => {
         setTodoData={setTodoData}
       />
     </div>
-  );
-};
+  )
+}
 
-export default TodoApp;
+export default TodoApp

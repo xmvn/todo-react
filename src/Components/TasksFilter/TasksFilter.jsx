@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import './TasksFilter.css';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import './TasksFilter.css'
 
 const TasksFilter = ({ filter, setFilter }) => {
-  const [filterCollection] = useState(['all', 'active', 'completed']);
+  const [filterCollection] = useState(['all', 'active', 'completed'])
 
   const handleFilterChange = (newFilter) => {
-    setFilter(newFilter);
-  };
+    setFilter(newFilter)
+  }
 
   return (
-    <ul className='filters'>
+    <ul className="filters">
       {filterCollection.map((filterOption) => (
         <li key={filterOption}>
           <button
@@ -22,12 +22,12 @@ const TasksFilter = ({ filter, setFilter }) => {
         </li>
       ))}
     </ul>
-  );
-};
+  )
+}
 
 TasksFilter.propTypes = {
   filter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
   setFilter: PropTypes.func.isRequired,
-};
+}
 
-export default TasksFilter;
+export default TasksFilter

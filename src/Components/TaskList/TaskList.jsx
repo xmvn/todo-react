@@ -1,86 +1,99 @@
-import React from 'react';
-import Task from '../Task/Task';
-import './TaskList.css';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-const TaskList = ({ todoData, setTodoData, filter }) => {
+import Task from '../Task/Task'
+
+import './TaskList.css'
+
+function TaskList({ todoData, setTodoData, filter }) {
+  const [editedTaskDescription, setEditedTaskDescription] = useState({})
+
   const deleteTask = (id) => {
-    const updatedTodoData = todoData.filter((todo) => todo.id !== id);
-    setTodoData(updatedTodoData);
-  };
+    const updatedTodoData = todoData.filter((todo) => todo.id !== id)
+    setTodoData(updatedTodoData)
+  }
   const completeTask = (id) => {
-    setTodoData((prevTodoData) => {
-      return prevTodoData.map((todo) => {
+    setTodoData((prevTodoData) =>
+      prevTodoData.map((todo) => {
         if (todo.id === id) {
           return {
             ...todo,
             status: todo.status === 'completed' ? null : 'completed',
-          };
+          }
         }
-        return todo;
-      });
-    });
-  };
-  const editTask = (id) => {
-    setTodoData((prevTodoData) => {
-      return prevTodoData.map((todo) => {
+        return todo
+      })
+    )
+  }
+  const editTask = (id, description) => {
+    setEditedTaskDescription({
+      id: id,
+      description: description,
+    })
+
+    setTodoData((prevTodoData) =>
+      prevTodoData.map((todo) => {
         if (todo.id === id) {
           return {
             ...todo,
             status: 'editing',
-          };
+          }
         }
-        return todo;
-      });
-    });
-  };
+        return todo
+      })
+    )
+  }
   const changeDescription = (id, value) => {
-    setTodoData((prevTodoData) => {
-      return prevTodoData.map((todo) => {
+    setTodoData((prevTodoData) =>
+      prevTodoData.map((todo) => {
         if (todo.id === id) {
           return {
             ...todo,
-            status: 'null',
+            status: null,
             description: value,
-          };
+          }
         }
-        return todo;
-      });
-    });
-  };
+        return todo
+      })
+    )
+  }
   const filteredTasks = todoData.filter((todo) => {
     if (filter === 'all') {
-      return true;
-    } else if (filter === 'active') {
-      return todo.status !== 'completed';
-    } else if (filter === 'completed') {
-      return todo.status === 'completed';
+      return true
     }
-    return true;
-  });
+    if (filter === 'active') {
+      return todo.status !== 'completed'
+    }
+    if (filter === 'completed') {
+      return todo.status === 'completed'
+    }
+    return true
+  })
   return (
-    <ul className='todo-list'>
+    <ul className="todo-list">
       <Task
         todoData={filteredTasks}
         deleteTask={deleteTask}
         completeTask={completeTask}
         editTask={editTask}
         changeDescription={changeDescription}
+        editedTaskDescription={editedTaskDescription}
+        setEditedTaskDescription={setEditedTaskDescription}
       />
     </ul>
-  );
-};
+  )
+}
 
 TaskList.propTypes = {
   todoData: PropTypes.array.isRequired,
   setTodoData: PropTypes.func.isRequired,
   filter: PropTypes.string.isRequired,
-};
+}
 
 TaskList.defaultProps = {
   todoData: [],
   setTodoData: () => {},
   filter: 'all',
-};
+}
 
-export default TaskList;
+export default TaskList

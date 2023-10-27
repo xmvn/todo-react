@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import PropTypes from 'prop-types'
 
-import './NewTaskForm.css';
+import './NewTaskForm.css'
 
 const NewTaskForm = ({ setTodoData }) => {
-  const [taskText, setTaskText] = useState('');
+  const [taskText, setTaskText] = useState('')
 
   const addTodo = () => {
     setTodoData((prevTodoData) => {
@@ -17,31 +17,33 @@ const NewTaskForm = ({ setTodoData }) => {
           created: Date.now(),
           id: uuidv4(),
         },
-      ];
-    });
-  };
+      ]
+    })
+  }
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    addTodo();
-    setTaskText('');
-  };
+    e.preventDefault()
+    if (taskText.trim() !== '') {
+      addTodo()
+      setTaskText('')
+    }
+  }
 
   return (
     <form onSubmit={onSubmit}>
       <input
-        className='new-todo'
-        placeholder='What needs to be done?'
+        className="new-todo"
+        placeholder="What needs to be done?"
         autoFocus
         value={taskText}
         onChange={(e) => setTaskText(e.target.value)}
       />
     </form>
-  );
-};
+  )
+}
 
 NewTaskForm.propTypes = {
   setTodoData: PropTypes.func.isRequired,
-};
+}
 
-export default NewTaskForm;
+export default NewTaskForm
