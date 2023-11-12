@@ -11,13 +11,22 @@ const Task = ({
   changeDescription,
   editedTaskDescription,
   setEditedTaskDescription,
+  numberToTime,
+  startTimer,
+  pauseTimer,
 }) => {
-  return todoData.map(({ status, id, description, created }) => (
+  return todoData.map(({ status, id, description, created, taskTime }) => (
     <li className={status} key={id}>
       <div className="view">
         <input className="toggle" type="checkbox" checked={status === 'completed'} onChange={() => completeTask(id)} />
         <label>
           <span className="description">{description}</span>
+          <span className="timer">
+            <button className="icon icon-play" onClick={() => startTimer(id, status, taskTime)} />
+            <button className="icon icon-pause" onClick={() => pauseTimer(id)} />
+            <span> {numberToTime(taskTime) ? numberToTime(taskTime) : 0}</span>
+          </span>
+
           <span className="created">Created {formatDistanceToNow(created, { includeSeconds: true })} ago</span>
         </label>
         <button className="icon icon-edit" onClick={() => editTask(id, description)}></button>
